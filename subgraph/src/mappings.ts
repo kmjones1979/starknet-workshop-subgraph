@@ -1,20 +1,15 @@
 import { Protobuf } from "as-proto/assembly";
-import { Events as protoEvents } from "./pb/starknet/v1/Events";
-import { MyEntity, Transfer, Approval } from "../generated/schema";
-import { BigInt, log, crypto, Bytes } from "@graphprotocol/graph-ts";
+import { Transactions as protoTransactions } from "./pb/sf/substreams/starknet/type/v1/Transactions";
+import { MyEntity } from "../generated/schema";
+import { BigInt, log, crypto, Bytes} from "@graphprotocol/graph-ts";
 
 export function handleTriggers(bytes: Uint8Array): void {
-    const input = Protobuf.decode<protoEvents>(bytes, protoEvents.decode);
+  const input = Protobuf.decode<protoTransactions>(bytes, protoTransactions.decode);
+  
+  // No ID field has been found in the proto input...
+  // The input has been hashed to create a unique ID, replace it with the field you want to use as ID
+  const inputHash = crypto.keccak256(Bytes.fromUint8Array(bytes)).toHexString();
+  let entity = new MyEntity(inputHash);
 
-    // No ID field has been found in the proto input...
-    // The input has been hashed to create a unique ID, replace it with the field you want to use as ID
-    const inputHash = crypto
-        .keccak256(Bytes.fromUint8Array(bytes))
-        .toHexString();
-    let entity = new MyEntity(inputHash);
-    for (let i = 0; i < input.events.length; i++) {
-        entity.jsonDescription = input.events[i].jsonDescription;
-    }
-
-    entity.save();
+  entity.save();
 }

@@ -1,19 +1,19 @@
 specVersion: 1.0.0
-description: starknet-usdc Substreams-powered-Subgraph
+description: starknet Substreams-powered-Subgraph
 indexerHints:
-    prune: auto
+  prune: auto
 schema:
-    file: ./schema.graphql
+  file: ./schema.graphql
 dataSources:
-    - kind: substreams
-      name: usdc-starknet-example
-      network: starknet-mainnet
-      source:
-          package:
-              moduleName: map_usdc_events
-              file: ../starknet-usdc-v0.1.0.spkg
-      mapping:
-          apiVersion: 0.0.7
-          kind: substreams/graph-entities
-          file: ./src/mappings.ts
-          handler: handleTriggers
+  - kind: substreams
+    name: starknet
+    network: starknet-mainnet
+    source:
+      package:
+        moduleName: filter_transactions
+        file: ../starknet-v0.1.0.spkg
+    mapping:
+      apiVersion: 0.0.7
+      kind: substreams/graph-entities
+      file: ./src/mappings.ts
+      handler: handleTriggers
