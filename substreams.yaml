@@ -25,7 +25,7 @@ binaries:
         file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
-    - name: filter_transactions
+    - name: map_usdc_transactions
       kind: map
       initialBlock: 1150779
       inputs:

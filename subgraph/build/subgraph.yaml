@@ -6,14 +6,14 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: substreams
-    name: usdc-foundational-example
+    name: starknet
     network: starknet-mainnet
     source:
       package:
-        moduleName: filter_transactions
-        file: usdc-foundational-example/starknet-v0.1.0.spkg
+        moduleName: map_usdc_transactions
+        file: starknet/starknet-v0.1.0.spkg
     mapping:
       apiVersion: 0.0.7
       kind: substreams/graph-entities
-      file: usdc-foundational-example/usdc-foundational-example.wasm
+      file: starknet/starknet.wasm
       handler: handleTriggers
