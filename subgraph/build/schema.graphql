@@ -1,6 +1,5 @@
 type MyEntity @entity {
     id: ID!
-    jsonDescription: String!
 }
 
 type Transfer @entity {
